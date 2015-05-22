@@ -1,0 +1,29 @@
+<GameStrings>
+	<String id="level1_begin_line1">
+		<English value="We will totally defeat you, random Enemy Cat!"/>
+	</String>
+	<String id="level1_begin_line2">
+		<English value="And we'll do it in style!"/>
+	</String>
+	<String id="level1_begin_line3">
+		<English value="Mwa ha ha ha! Laughable!"/>
+	</String>
+	<String id="level1_begin_line4">
+		<English value="You are nothing more than my daily conquest before naptime."/>
+	</String>
+	<String id="level1_during_line1">
+		<English value="Mwa ha ha ha! You've fallen right into my trap. MiniBoss, go!"/>
+	</String>
+	<String id="level1_during_line2">
+		<English value="Ouch, this is tough... Time for reinforcements of our own!"/>
+	</String>
+	<String id="level1_during_line3">
+		<English value="Everyone, ignore MiniBoss! Go for EnemyCat and end this quickly!"/>
+	</String>
+	<String id="level1_end_line1">
+		<English value="Heh, turns out they weren't so tough after all!"/>
+	</String>
+	<String id="level1_end_line2">
+		<English value="Whew, we pulled through somehow!"/>
+	</String>
+</GameStrings>

@@ -1,0 +1,89 @@
+<LevelEvents>
+
+	<OnLevelBegin>
+		
+		<AddMission stringID="level1_mission1">
+			<Requirements>
+				<Requirement type="takeKeep" keep="NorthWestKeep"/>
+			</Requirements>
+		</AddMission>
+	
+		<Dialogue avatar="PlayerCat" stringID="level1_begin_line1"/>
+		<Dialogue avatar="PlayerCat" stringID="level1_begin_line2"/>
+		<Dialogue avatar="EnemyCat" stringID="level1 _begin_line3"/>
+		<Dialogue avatar="EnemyCat" stringID="level1_begin_line4"/>
+		
+	</OnLevelBegin>
+	
+	<DuringLevel>
+	
+		<Requirements>
+			<Requirement type="takeKeep" keep="NorthWestKeep"/>
+		</Requirements>
+		
+		<CompleteMission stringID="level1_mission1"/>
+		
+		<Dialogue avatar="EnemyCat" stringID="level1_during_line1"/>
+		
+		<SpawnReinforcements>
+			<Reinforcement enemy="MiniBoss" number="1" keep="NorthWestKeep"/>
+			<Reinforcement enemy="GenericEnemy1" number="8" keep="NorthWestKeep"/>
+			<Reinforcement enemy="GenericEnemy2" number="3" keep="NorthWestKeep"/>
+		</SpawnReinforcements>
+		
+		<Dialogue avatar="PlayerCat" stringID="level1_during_line2"/>
+		<Dialogue avatar="PlayerCat" stringID="level1_during_line3"/>
+		
+		<AddMission stringID="level1_mission2">
+			<Requirements>
+				<Requirement type="defeatEnemy" enemy="EnemyCat"/>
+			</Requirements>
+		</AddMission>
+		
+		<SpawnReinforcements>
+			<Reinforcement ally="GenericAlly1" number="5" keep="SouthwestKeep"/>
+			<Reinforcement ally="GenericAlly2" number="2" keep="SouthwestKeep"/>
+		</SpawnReinforcements>
+		
+	</DuringLevel>
+	
+	<DuringLevel>
+	
+		<Requirements>
+			<Requirement type="defeatEnemy" enemy="MiniBoss"/>
+		</Requirements>
+		
+		<Dialogue avatar="MiniBoss" stringID="level1_during_line4"/>
+		
+		<SpawnReinforcements>
+			<Reinforcement enemy="GenericEnemy1" number="5" keep="NorthEastKeep"/>
+			<Reinforcement enemy="GenericEnemy2" number="2" keep="SouthEastKeep"/>
+		</SpawnReinforcements>
+		
+	</DuringLevel>
+	
+	<OnLevelEnd>
+	
+		<Requirements>
+			<Requirement type="complete mission" stringID="level1_mission2"/>
+		</Requirements>
+	
+		<Branch>
+		
+			<Requirements>
+				<Requirement type="defeatEnemy" enemy="MiniBoss"/>
+			</Requirements>
+			
+			<True>
+				<Dialogue avatar="PlayerCat" stringID="level1_end_line1"/>
+			</True>
+			
+			<False>
+				<Dialogue avatar="PlayerCat" stringID="level1_end_line2"/>
+			</False>
+			
+		</Branch>
+		
+	</OnLevelEnd>
+		
+</LevelEvents>

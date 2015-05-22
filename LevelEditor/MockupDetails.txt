@@ -1,0 +1,39 @@
+Mockup Details
+
+There will be file and edit menus on the menu bar, and each function will pretty much operate as expected.
+
+Only one level will be open at a time. On creating a new file, it needs to be given a name and saved
+in the ProjectGunpowder/Unity/Assets/DataDriven directory. The entire editor: saving, opening, etc.,
+should always operate only inside that directory.
+
+In that directory there is currently one example level already written up manually for the
+prototype of Project Gunpowder to use and for the development of the editor to model itself after.
+On that note: it should be as easy as possible to allow the editor to work with any new
+xml nodes and attributes we may use in the future.
+
+The menu options should be given shortcuts (ex. cmd + s = save).
+
+While editing, each node and property will be represented in the editor in a streamlined,
+easy way to develop our levels' behaviour.
+
+All nodes except <OnLevelBegin>, <OnLevelEnd>, and <Requirements> should be able to be dragged (hinted at with
+the hand icon on the top-right) up and down easily to rearrange the order of level events.
+
+On Level Begin will always be at the top, if it exists. Similarly, On Level End will be at the bottom.
+Requirements will always be the first node to appear if a node has it as a child node.
+Requirements must exist for any During Level node and On Level End node, if they exist.
+Other nodes may force Requirements too, such as AddMission (the requirements are the mission description).
+
+The plus button on During Level will add a node beneath it at the bottom of the list, which 
+then appears with a drop-down box for the type (such as AddMission, Dialogue, etc). Once the
+type is selected, more UI elements will appear as necessary to complete the information.
+
+The minus button will delete that node and all its children and appears on all nodes, not
+just the top level ones like During Level.
+
+Strings are represented as StringIDs in the XML representation of a level, but in the
+editor they should appear as what the string actually is in english. In the same directory
+as the levels, there is a file called GameStrings.xml which holds all the strings in
+the game, referenced by their StringIDs. The editor will need to use and update this
+file. The IDs can be assigned away from user-facing by following patterns like the ones
+already shown as examples in the prototype files.
