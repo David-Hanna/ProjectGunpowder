@@ -1,0 +1,2 @@
+Dialogue box goes at camera's position offset by (x, y - 3.4, -9).
+Scale is (10, 1.3, 1).
