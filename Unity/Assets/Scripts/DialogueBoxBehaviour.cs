@@ -47,7 +47,7 @@ public class DialogueBoxBehaviour : MonoBehaviour {
 			);
 
 		texture = new Texture2D (1, 1);
-		texture.SetPixel (0, 0, Color.blue);
+		texture.SetPixel (0, 0, new Color(0, 0, 1.0f, 0.5f));
 		texture.Apply ();
 
 		boxStyle = new GUIStyle ();
@@ -62,6 +62,11 @@ public class DialogueBoxBehaviour : MonoBehaviour {
 	void Update () {
 	
 		if (active && displayUpToIndex < text.Length) {
+
+			if (Input.GetKey (KeyCode.Space)) {
+
+				displayUpToIndex = text.Length;
+			}
 
 			revealHelper += Time.deltaTime;
 
