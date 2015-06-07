@@ -15,7 +15,7 @@ public class MoveBehaviour : MonoBehaviour {
 			speed = initialSpeed;
 		}
 
-		public abstract void Update ();
+		public abstract void FixedUpdate ();
 	}
 
 	public class MoveState_NoMove : MoveState {
@@ -24,7 +24,7 @@ public class MoveBehaviour : MonoBehaviour {
 			stateName = "NoMove";
 		}
 
-		public override void Update() {}
+		public override void FixedUpdate() {}
 	}
 
 	public class MoveState_PlayerControlled : MoveState {
@@ -33,7 +33,7 @@ public class MoveBehaviour : MonoBehaviour {
 			stateName = "PlayerControlled";
 		}
 
-		public override void Update () {
+		public override void FixedUpdate () {
 
 			float horizontal = Input.GetAxis ("Horizontal") * speed * Time.deltaTime;
 			float vertical = Input.GetAxis ("Vertical") * speed * Time.deltaTime;
@@ -51,8 +51,8 @@ public class MoveBehaviour : MonoBehaviour {
 		ChangeState (initialState, speed);
 	}
 
-	void Update () {
-		currentMoveState.Update ();
+	void FixedUpdate () {
+		currentMoveState.FixedUpdate ();
 	}
 
 	public string GetCurrentState() {
