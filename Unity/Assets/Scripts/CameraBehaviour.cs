@@ -4,6 +4,7 @@ using System.Collections;
 public class CameraBehaviour : MonoBehaviour {
 
 	public float moveSpeed;
+	public bool active;
 
 	private Rigidbody rigidbody;
 
@@ -20,11 +21,12 @@ public class CameraBehaviour : MonoBehaviour {
 
 	void FixedUpdate () {
 
-		float horizontal = Input.GetAxis ("Horizontal") * moveSpeed * Time.deltaTime;
-		float vertical = Input.GetAxis ("Vertical") * moveSpeed * Time.deltaTime;
+		if (active) {
 
-		rigidbody.velocity = new Vector3 (horizontal, vertical, 0.0f);
-		//ownerTransform.Translate (new Vector3 (horizontal, vertical, 0.0f));
+			float horizontal = Input.GetAxis ("Horizontal") * moveSpeed * Time.deltaTime;
+			float vertical = Input.GetAxis ("Vertical") * moveSpeed * Time.deltaTime;
 
+			rigidbody.velocity = new Vector3 (horizontal, vertical, 0.0f);
+		}
 	}
 }
