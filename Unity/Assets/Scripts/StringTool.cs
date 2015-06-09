@@ -57,7 +57,7 @@ public class StringTool {
 		loadedStrings.Clear();
 
 		try {
-			TextAsset gameStringsTxt = (TextAsset)Resources.Load ("GameStrings");
+			TextAsset gameStringsTxt = (TextAsset)Resources.Load ("Text/GameStrings");
 
 			XmlDocument gameStringsDoc = new XmlDocument();
 			gameStringsDoc.LoadXml (gameStringsTxt.text);

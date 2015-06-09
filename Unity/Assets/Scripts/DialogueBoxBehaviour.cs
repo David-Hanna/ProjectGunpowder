@@ -5,9 +5,6 @@ public class DialogueBoxBehaviour : MonoBehaviour {
 
 	public Font font;
 
-	public bool active { get; set; }
-	public string text { get; private set; }
-
 	private int displayUpToIndex;
 	private float secondsPerLetter;
 	private float revealHelper;
@@ -16,6 +13,10 @@ public class DialogueBoxBehaviour : MonoBehaviour {
 	private Texture2D texture;
 	private GUIStyle boxStyle;
 	private GUIStyle textStyle;
+	private StringTool stringTool;
+
+	public bool active { get; set; }
+	public string text { get; private set; }
 
 	public const float REVEAL_SPEED_SLOW = 0.10f;
 	public const float REVEAL_SPEED_MEDIUM = 0.04f;
@@ -24,8 +25,6 @@ public class DialogueBoxBehaviour : MonoBehaviour {
 
 	void Start () {
 
-		active = true;
-		text = "Why hello there dialogue box! How are you today? I am great! Thank you! It is so wonderful that this text box is simply working so well, isn't it?\nTime to show off the third line by writing text here!\nIs a fourth line pushing it? Nope!";
 		displayUpToIndex = 0;
 		secondsPerLetter = REVEAL_SPEED_MEDIUM;
 		revealHelper = 0.0f;
@@ -57,6 +56,11 @@ public class DialogueBoxBehaviour : MonoBehaviour {
 		textStyle.font = font;
 		textStyle.normal.textColor = font.material.color;
 		textStyle.wordWrap = true;
+
+		stringTool = GameObject.FindGameObjectWithTag ("GameData").GetComponent<GameData>().stringTool;
+
+		active = true;
+		text = stringTool.GetStringByID ("level1_begin_line4");
 	}
 
 	void Update () {
