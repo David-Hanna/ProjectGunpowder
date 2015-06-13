@@ -15,7 +15,7 @@ public class DialogueBoxBehaviour : MonoBehaviour {
 	private GUIStyle textStyle;
 	private StringTool stringTool;
 
-	public bool active { get; set; }
+	public bool active { get; private set; }
 	public string text { get; private set; }
 
 	public const float REVEAL_SPEED_SLOW = 0.10f;
@@ -57,13 +57,14 @@ public class DialogueBoxBehaviour : MonoBehaviour {
 		textStyle.normal.textColor = font.material.color;
 		textStyle.wordWrap = true;
 
-		stringTool = GameObject.FindGameObjectWithTag ("GameData").GetComponent<GameData>().stringTool;
-
-		active = true;
-		text = stringTool.GetStringByID ("level1_begin_line4");
+		active = false;
 	}
 
 	void Update () {
+
+		if (Input.GetButtonDown ("Jump")) {
+			SetActive (!active);
+		}
 	
 		if (active && displayUpToIndex < text.Length) {
 
@@ -94,6 +95,15 @@ public class DialogueBoxBehaviour : MonoBehaviour {
 
 			GUI.Box (textBox, GUIContent.none, boxStyle);
 			GUI.Label (textSpace, text.Substring (0, displayUpToIndex), textStyle);
+		}
+	}
+
+	public void SetActive(bool _active) {
+
+		active = _active;
+		if (active) {
+			stringTool = GameObject.FindGameObjectWithTag ("GameData").GetComponent<GameData>().stringTool;
+			text = stringTool.GetStringByID ("level1_begin_line4");
 		}
 	}
 

@@ -3,17 +3,16 @@ using System.Collections;
 
 public class CameraBehaviour : MonoBehaviour {
 
-	public float moveSpeed;
-	public bool active;
+	public float dampTime = 0.15f;
+	public Transform objectToFollow;
 
-	void FixedUpdate () {
+	private Vector3 velocity = Vector3.zero;
 
-		if (active) {
+	void Update () {
 
-			float horizontal = Input.GetAxis ("Horizontal") * moveSpeed * Time.deltaTime;
-			float vertical = Input.GetAxis ("Vertical") * moveSpeed * Time.deltaTime;
-
-			GetComponent<Rigidbody>().velocity = new Vector3 (horizontal, vertical, 0.0f);
+		if (objectToFollow != null) {
+			Vector3 targetPosition = new Vector3 (objectToFollow.position.x, objectToFollow.position.y, transform.position.z);
+			transform.position = Vector3.SmoothDamp (transform.position, targetPosition, ref velocity, dampTime);
 		}
 	}
 }

@@ -81,7 +81,6 @@ public class StringTool {
 	public string GetStringByID(string id) {
 
 		if (loadedStrings.ContainsKey (id)) {
-
 			return loadedStrings [id];
 		} 
 		else {
