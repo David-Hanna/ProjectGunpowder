@@ -62,9 +62,9 @@ public class DialogueBoxBehaviour : MonoBehaviour {
 
 	void Update () {
 
-		if (Input.GetButtonDown ("Jump")) {
-			SetActive (!active);
-		}
+//		if (Input.GetButtonDown ("Fire")) {
+//			SetActive (!active);
+//		}
 	
 		if (active && displayUpToIndex < text.Length) {
 
