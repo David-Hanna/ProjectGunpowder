@@ -3,7 +3,7 @@
 
 public class PtOTimer extends Thread
 {
-	private EventManagerPanel managerDelegate;
+	private T<? extends EventManagerPanel> managerDelegate;
 	private double time;
 	private boolean running  = true;
 	//BAsic timer class ust is a thread that slseeps for x time, not very load intensive and since it doesnt have to be perfect we can just sleep
