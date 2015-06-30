@@ -11,26 +11,41 @@ import javax.swing.*;
 
 import java.awt.event.*;
 import java.awt.Event.*;
+import java.util.*;
 public class EventPanel extends JPanel
 {
+	private ArrayList<PtOButton> buttons;
+	public static final PtOPanelTag tag = PtOPanelTag.EVENT_PANEL;
+	private UUID panelID;
 	private int x, y, width, height;
 	private int count = 0;
-	private final int TOOLBAR_RATIO = 12;
+	private final int TOOLBAR_RATIO = 12, HIGHLIGHTWIDTH = 5;
 	private JButton testButton;
-	private Color testColor;
-	public EventPanel(int x, int y, int width, int height)
+	//Color to be displayed while selected, will be an outline
+	private Color testColor, highlightColor = Color.CYAN;
+	private boolean selected = false;
+	public EventPanel(int x, int y, int width, int height, Color color)
 	{
-		testColor = Color.blue;
 		
+		testColor = color;
+		buttons = new ArrayList<PtOButton>();
+		buttons.add(new PtOButton(x + 10, y + 10, PtOButton.STANDARD_WIDTH, PtOButton.STANDARD_HEIGHT, this));
+		//Now we just have this get a random id, will be used in the equals method
+		
+		panelID = UUID.randomUUID();
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		testButton = new JButton("Drag me!");
-		testButton.addActionListener(new actionListener());
+		
 		this.setPreferredSize(new Dimension(100, 300));
 		//testButton.setAlignmentX(100);
 		//this.add(testButton);
+	}
+	
+	public void isSelected(boolean selected)
+	{
+		this.selected = selected;
 	}
 	
 	public int getToolbarSize()
@@ -38,10 +53,38 @@ public class EventPanel extends JPanel
 		return height / TOOLBAR_RATIO;
 	}
 	
+	/**
+	 * Swap function, what it does is take the y position of whatever initiated the swap, along wth the swap distance.  
+	 * It then decides to swap up or down
+	 * @param g
+	 */
+	public void swap(int y, int swapDistance)
+	{
+		if(y < this.y)
+		{
+			//Then we swap up
+			this.y -= swapDistance;
+		}
+		else
+		{
+			//Then we swap down
+			this.y += swapDistance;
+		}
+	}
+	
 	public void draw(Graphics g)
 	{
+
+		//Drawing the highlight maybe
+		if(selected)
+		{
+			g.setColor(highlightColor);
+			g.fillRect(x - HIGHLIGHTWIDTH, y - HIGHLIGHTWIDTH, width + HIGHLIGHTWIDTH * 2, height + HIGHLIGHTWIDTH * 2);
+		}
+		
 		g.setColor(testColor);
 		//Should draw from a given x and y point, though for now just doing individual panels right
+		System.out.println("X is " + x + "and y is" + y);
 		g.fillRect(x, y, width, height);
 		//Making it dark grey for now
 		
@@ -49,6 +92,31 @@ public class EventPanel extends JPanel
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(x, y, width, height / TOOLBAR_RATIO );
 		
+		//Draw the buttons
+		for(PtOButton button : buttons)
+		{
+			button.draw(g);
+		}
+		
+		
+
+	}
+	
+	
+	
+	
+	
+	@Override
+	public boolean equals(Object otherPanel)
+	{
+		if(((EventPanel)otherPanel).getId().equals(panelID))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	//Function as moving it as well as setting the position to be the one pcified
@@ -74,9 +142,30 @@ public class EventPanel extends JPanel
 		}
 	}
 	
+	
+	
+	/**
+	 * Less load intensive collision detection for just y
+	 * 
+	 */
+	public boolean yCheck(int otherY)
+	{
+		if(otherY <= y + height && otherY >= y)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Can use this for a coliision detection
+	 * @param otherX
+	 * @param otherY
+	 * @return
+	 */
 	public boolean wasClicked(int otherX, int otherY)
 	{
-		//Determines if this component got clicked
+
 		if(otherX > x && otherX < x + width)
 		{
 			if(otherY > y && otherY < y + height)
@@ -88,22 +177,41 @@ public class EventPanel extends JPanel
 	}
 	
 	//This is a general method that simply will receive the x and y coordinate relative to the component which received the click
-	public void clickedInside(int x, int y)
+	public PtOPanelTag clickedInside(int x, int y)
 	{
-		System.out.println("Much success");
 		count++;
-		if(count % 2 == 0)
+		PtOButton clickedButton = null;
+		//Determines if this component got clicked
+		for(PtOButton button : buttons)
 		{
-			testColor = Color.red;
+			if(button.wasClicked(x, y))
+			{
+				clickedButton = button;
+			}
+		}
+		//IF we have clicked a button, we don't react to the click the button does
+		if(clickedButton != null)
+		{
+			return clickedButton.tag;
 		}
 		else
 		{
-			testColor = Color.blue;
+			if(count % 2 == 0)
+			{
+				testColor = Color.red;
+			}
+			else
+			{
+				testColor = Color.blue;
+			}
+			return tag;
 		}
 	}
 	
 	
 	
+	
+	//Will be useful for telling which events are at the end or beginning, could just use indexes actually...right
 	/**
 	 * Getters and setters galore 
 	 */
@@ -140,4 +248,9 @@ public class EventPanel extends JPanel
 	{
 		this.height = height;
 	}
+	public UUID getId()
+	{
+		return panelID;
+	}
+	
 }
